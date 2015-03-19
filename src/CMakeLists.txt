@@ -228,6 +228,22 @@ endif()
 add_static_parcelports()
 set(hpx_HEADERS ${hpx_HEADERS} ${HPX_STATIC_PARCELPORT_PLUGINS_HEADERS})
 set(hpx_SOURCES ${hpx_SOURCES} ${HPX_STATIC_PARCELPORT_PLUGINS_SOURCES})
+#
+# set_source_files_properties and set_property appear to be broken when setting
+# INCLUDE_DIRECTORIES, so work around by adding compile flags for the include
+# locations needed by parcelport plugin sources 
+#
+foreach(_plugin ${HPX_STATIC_PARCELPORT_PLUGINS})
+  if (_parcelport_${_plugin}_INCLUDE_DIRECTORIES)
+    string (REPLACE ";" " -I" _INCLUDE_STRING "${_parcelport_${_plugin}_INCLUDE_DIRECTORIES}")
+    set_property(
+      SOURCE 
+        ${_parcelport_${_plugin}_SOURCES}
+      APPEND_STRING PROPERTY COMPILE_FLAGS
+        " -I${_INCLUDE_STRING}"
+    )
+  endif()
+endforeach()
 
 ################################################################################
 # libhpx
@@ -241,7 +257,7 @@ else()
   add_library(hpx ${hpx_library_link_mode_core} EXCLUDE_FROM_ALL
     ${hpx_SOURCES} ${hpx_external_SOURCES} ${hpx_external_OBJECTS} ${hpx_HEADERS})
 endif()
-
+  
 #if(HPX_STATIC_LINKING)
 #  add_dependencies(hpx static_component_data_hpp)
 #endif()
@@ -268,6 +284,13 @@ else()
     hpx_serialization
     ${HPX_LIBRARIES})
 endif()
+
+foreach(_plugin ${HPX_STATIC_PARCELPORT_PLUGINS})
+  if (_parcelport_${_plugin}_LIBRARIES)
+    target_link_libraries(hpx ${_parcelport_${_plugin}_LIBRARIES})
+    hpx_export_targets(${_parcelport_${_plugin}_LIBRARIES})
+  endif()
+endforeach()
 
 set_property(TARGET hpx APPEND
   PROPERTY COMPILE_DEFINITIONS
