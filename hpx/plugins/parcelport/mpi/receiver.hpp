@@ -8,7 +8,7 @@
 #ifndef HPX_PARCELSET_POLICIES_MPI_RECEIVER_HPP
 #define HPX_PARCELSET_POLICIES_MPI_RECEIVER_HPP
 
-#include <hpx/plugins/parcelport/mpi/header.hpp>
+#include <hpx/plugins/parcelport/header.hpp>
 #include <hpx/runtime/parcelset/decode_parcels.hpp>
 
 #include <hpx/util/memory_chunk_pool.hpp>

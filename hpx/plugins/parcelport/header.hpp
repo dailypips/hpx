@@ -4,19 +4,19 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef HPX_PARCELSET_POLICIES_MPI_HEADER_HPP
-#define HPX_PARCELSET_POLICIES_MPI_HEADER_HPP
-
-#include <mpi.h>
+#ifndef HPX_PARCELSET_POLICIES_HEADER_HPP
+#define HPX_PARCELSET_POLICIES_HEADER_HPP
 
 #include <hpx/runtime/parcelset/parcel_buffer.hpp>
 
 #include <hpx/util/assert.hpp>
-#include <hpx/plugins/parcelport/mpi/mpi_environment.hpp>
 
 #include <boost/array.hpp>
+#include "plugins/parcelport/verbs/rdmahelper/include/RdmaLogging.h"
 
-namespace hpx { namespace parcelset { namespace policies { namespace mpi
+// A generic header structure that can be used by parcelports
+// currently, the mpi and verbs parcelports make use of it
+namespace hpx { namespace parcelset { namespace policies
 {
     struct header
     {
@@ -48,6 +48,8 @@ namespace hpx { namespace parcelset { namespace policies { namespace mpi
             set<pos_numbytes>(static_cast<value_type>(numbytes));
             set<pos_numchunks_first>(static_cast<value_type>(buffer.num_chunks_.first));
             set<pos_numchunks_second>(static_cast<value_type>(buffer.num_chunks_.second));
+
+LOG_DEBUG_MSG("Buffer data size is " << buffer.data_.size() << " (data_size_ - pos_piggy_back_data) is " << (data_size_ - pos_piggy_back_data));
 
             if(buffer.data_.size() <= (data_size_ - pos_piggy_back_data))
             {
@@ -134,6 +136,65 @@ namespace hpx { namespace parcelset { namespace policies { namespace mpi
             return res;
         }
     };
-}}}}
+
+    struct tag_provider
+    {
+        typedef lcos::local::spinlock mutex_type;
+
+        struct tag
+        {
+            tag(tag_provider *provider)
+              : provider_(provider)
+              , tag_(provider_->acquire())
+            {}
+
+            operator int () const
+            {
+                return tag_;
+            }
+
+            ~tag()
+            {
+                provider_->release(tag_);
+            }
+
+            tag_provider *provider_;
+            int tag_;
+        };
+
+        tag_provider()
+          : next_tag_(1)
+        {}
+
+        tag operator()()
+        {
+            return tag(this);
+        }
+
+        int acquire()
+        {
+            mutex_type::scoped_lock l(mtx_);
+            if(free_tags_.empty())
+                return next_tag_++;
+
+            int tag = free_tags_.front();
+            free_tags_.pop_front();
+            return tag;
+        }
+
+        void release(int tag)
+        {
+            if(tag == next_tag_) return;
+
+            mutex_type::scoped_lock l(mtx_);
+            free_tags_.push_back(tag);
+        }
+
+        mutex_type mtx_;
+        int next_tag_;
+        std::deque<int> free_tags_;
+    };
+
+}}}
 
 #endif
