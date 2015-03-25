@@ -965,21 +965,42 @@ hpx_check_for_cxx11_variadic_macros(
 hpx_check_for_cxx11_variadic_templates(
   REQUIRED "HPX needs support for C++11 variadic templates")
 
-hpx_check_for_cxx11_std_unique_ptr(
-  DEFINITIONS HPX_HAVE_CXX11_STD_UNIQUE_PTR
-              BOOST_LOCKFREE_HAVE_CXX11_STD_UNIQUE_PTR)
+# Check the availability of certain C++11 library features
+
+hpx_check_for_cxx11_std_chrono(
+  DEFINITIONS HPX_HAVE_CXX11_STD_CHRONO)
 
 hpx_check_for_cxx11_std_initializer_list(
   DEFINITIONS HPX_HAVE_CXX11_STD_INITIALIZER_LIST)
 
-hpx_check_for_cxx11_std_chrono(
-  DEFINITIONS HPX_HAVE_CXX11_STD_CHRONO)
+hpx_check_for_cxx11_std_is_final(
+  DEFINITIONS HPX_HAVE_CXX11_STD_IS_FINAL)
+
+hpx_check_for_cxx11_std_is_null_pointer(
+  DEFINITIONS HPX_HAVE_CXX11_STD_IS_NULL_POINTER)
+
+hpx_check_for_cxx11_std_unique_ptr(
+  DEFINITIONS HPX_HAVE_CXX11_STD_UNIQUE_PTR
+              BOOST_LOCKFREE_HAVE_CXX11_STD_UNIQUE_PTR)
+
+hpx_check_for_cxx11_std_type_traits(
+  DEFINITIONS HPX_HAVE_CXX11_STD_TYPE_TRAITS)
+
+# Check the availability of certain C++14 language features
 
 hpx_check_for_cxx14_constexpr(
   DEFINITIONS HPX_HAVE_CXX14_CONSTEXPR)
 
 hpx_check_for_cxx14_lambdas(
   DEFINITIONS HPX_HAVE_CXX14_LAMBDAS)
+
+# Check the availability of certain C++14 library features
+
+hpx_check_for_cxx14_std_integer_sequence(
+  DEFINITIONS HPX_HAVE_CXX14_STD_INTEGER_SEQUENCE)
+
+hpx_check_for_cxx14_std_result_of_sfinae(
+  DEFINITIONS HPX_HAVE_CXX14_STD_RESULT_OF_SFINAE)
 
 ##############################################################################
 
