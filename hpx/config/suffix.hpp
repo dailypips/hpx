@@ -1,0 +1,52 @@
+//  Copyright (c) 2015 Agustin Berge
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
+//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+#if HPX_CONFIG_INCLUDE_LEVEL == 0
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+
+#   undef HPX_NOEXCEPT
+#   undef HPX_NOEXCEPT_IF
+#   undef HPX_NOEXCEPT_EXPR
+
+#   undef HPX_CONSTEXPR
+#   undef HPX_RELAXED_CONSTEXPR
+#   undef HPX_CONSTEXPR_OR_CONST
+#   undef HPX_STATIC_CONSTEXPR
+
+#   undef HPX_INLINE_NAMESPACE
+
+#   undef HPX_FORCEINLINE
+#   undef HPX_NOINLINE
+
+#elif HPX_CONFIG_INCLUDE_LEVEL == 1
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 0
+#elif HPX_CONFIG_INCLUDE_LEVEL == 2
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 1
+#elif HPX_CONFIG_INCLUDE_LEVEL == 3
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 2
+#elif HPX_CONFIG_INCLUDE_LEVEL == 4
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 3
+#elif HPX_CONFIG_INCLUDE_LEVEL == 5
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 4
+#elif HPX_CONFIG_INCLUDE_LEVEL == 6
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 5
+#elif HPX_CONFIG_INCLUDE_LEVEL == 7
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 6
+#elif HPX_CONFIG_INCLUDE_LEVEL == 8
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 7
+#elif HPX_CONFIG_INCLUDE_LEVEL == 9
+#   undef HPX_CONFIG_INCLUDE_LEVEL
+#   define HPX_CONFIG_INCLUDE_LEVEL 8
+#else
+#   error HPX inclusion level too deep
+#endif

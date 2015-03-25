@@ -9,7 +9,7 @@
 
 // We need to detect if user code include boost/config.hpp before including hpx/config.hpp
 // Everything else might lead to hard compile errors and possible very subtile bugs.
-#if defined(BOOST_CONFIG_HPP)
+#if defined(BOOST_CONFIG_HPP) && !defined(HPX_CONFIG_DEFINES_HPP)
 #error Boost.Config was included before the hpx config header. This might lead to subtile failures and compile errors. Please include <hpx/config.hpp> before any other boost header
 #endif
 
