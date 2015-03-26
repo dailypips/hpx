@@ -16,6 +16,7 @@ namespace hpx { namespace parcelset { namespace policies { namespace mpi
 {
     struct sender
     {
+        typedef header<512> header_type;
         typedef hpx::lcos::local::spinlock mutex_type;
         sender(std::size_t max_connections)
           : max_connections_(max_connections)
@@ -59,7 +60,7 @@ namespace hpx { namespace parcelset { namespace policies { namespace mpi
             check_num_connections chk(this);
             tag_provider::tag tag(tag_provider_());
 
-            header h(buffer, tag);
+            header_type h(buffer, tag);
             h.assert_valid();
 
             MPI_Request request;

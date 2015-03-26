@@ -62,7 +62,7 @@ if(HPX_PARCELPORT_MPI)
         "${hpx_SOURCE_DIR}/plugins/parcelport/mpi/mpi_environment.cpp"
         "${hpx_SOURCE_DIR}/plugins/parcelport/mpi/parcelport_mpi.cpp"
       HEADERS
-        "${hpx_SOURCE_DIR}/hpx/plugins/parcelport/mpi/header.hpp"
+        "${hpx_SOURCE_DIR}/hpx/plugins/parcelport/header.hpp"
         "${hpx_SOURCE_DIR}/hpx/plugins/parcelport/mpi/locality.hpp"
         "${hpx_SOURCE_DIR}/hpx/plugins/parcelport/mpi/mpi_environment.hpp"
         "${hpx_SOURCE_DIR}/hpx/plugins/parcelport/mpi/sender.hpp"
