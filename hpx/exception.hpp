@@ -30,7 +30,7 @@
 #include <hpx/config/warnings_prefix.hpp>
 
 #if !defined(BOOST_SYSTEM_NOEXCEPT)
-#define BOOST_SYSTEM_NOEXCEPT BOOST_NOEXCEPT
+#define BOOST_SYSTEM_NOEXCEPT HPX_NOEXCEPT
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ namespace hpx
                 return "";
             }
 
-            std::string message(int) const BOOST_NOEXCEPT
+            std::string message(int) const HPX_NOEXCEPT
             {
                 return "";
             }

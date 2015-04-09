@@ -6,6 +6,7 @@
 #if !defined(HPX_LCOS_LOCAL_PACKAGED_TASK_MAR_01_2012_0121PM)
 #define HPX_LCOS_LOCAL_PACKAGED_TASK_MAR_01_2012_0121PM
 
+#include <hpx/config.hpp>
 #include <hpx/hpx_fwd.hpp>
 #include <hpx/lcos/future.hpp>
 #include <hpx/lcos/local/promise.hpp>
@@ -223,7 +224,7 @@ namespace hpx { namespace lcos { namespace local
             return future_access<future<Result> >::create(task_);
         }
 
-        bool valid() const BOOST_NOEXCEPT
+        bool valid() const HPX_NOEXCEPT
         {
             return !!task_;
         }
@@ -274,7 +275,7 @@ namespace hpx { namespace lcos { namespace local
                 return *this;
             }
 
-            void swap(packaged_task_base& other) BOOST_NOEXCEPT
+            void swap(packaged_task_base& other) HPX_NOEXCEPT
             {
                 function_.swap(other.function_);
                 promise_.swap(other.promise_);
@@ -330,7 +331,7 @@ namespace hpx { namespace lcos { namespace local
                 return promise_.get_future();
             }
 
-            bool valid() const BOOST_NOEXCEPT
+            bool valid() const HPX_NOEXCEPT
             {
                 return !function_.empty() && promise_.valid();
             }
@@ -394,7 +395,7 @@ namespace hpx { namespace lcos { namespace local
             return *this;
         }
 
-        void swap(packaged_task& other) BOOST_NOEXCEPT
+        void swap(packaged_task& other) HPX_NOEXCEPT
         {
             base_type::swap(other);
         }

@@ -62,7 +62,7 @@ private:
 
 public:
     /** uninitialized constructor */
-    tagged_ptr(void) BOOST_NOEXCEPT//: ptr(0), tag(0)
+    tagged_ptr(void) HPX_NOEXCEPT//: ptr(0), tag(0)
     {}
 
     /** copy constructor */

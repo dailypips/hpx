@@ -50,17 +50,17 @@ namespace hpx { namespace util
     template <std::size_t I, typename Tuple>
     BOOST_CONSTEXPR BOOST_FORCEINLINE
     typename tuple_element<I, Tuple>::type&
-    get(Tuple& t) BOOST_NOEXCEPT;
+    get(Tuple& t) HPX_NOEXCEPT;
 
     template <std::size_t I, typename Tuple>
     BOOST_CONSTEXPR BOOST_FORCEINLINE
     typename tuple_element<I, Tuple>::type const&
-    get(Tuple const& t) BOOST_NOEXCEPT;
+    get(Tuple const& t) HPX_NOEXCEPT;
 
     template <std::size_t I, typename Tuple>
     BOOST_CONSTEXPR BOOST_FORCEINLINE
     typename tuple_element<I, Tuple>::type&&
-    get(Tuple&& t) BOOST_NOEXCEPT;
+    get(Tuple&& t) HPX_NOEXCEPT;
 
     namespace detail
     {
@@ -86,8 +86,8 @@ namespace hpx { namespace util
               : _value(std::forward<T>(other.value()))
             {}
 
-            T& value() BOOST_NOEXCEPT { return _value; }
-            T const& value() const BOOST_NOEXCEPT { return _value; }
+            T& value() HPX_NOEXCEPT { return _value; }
+            T const& value() const HPX_NOEXCEPT { return _value; }
 
         private:
             T _value;
@@ -116,8 +116,8 @@ namespace hpx { namespace util
               : T(std::forward<T>(other.value()))
             {}
 
-            T& value() BOOST_NOEXCEPT { return *this; }
-            T const& value() const BOOST_NOEXCEPT { return *this; }
+            T& value() HPX_NOEXCEPT { return *this; }
+            T const& value() const HPX_NOEXCEPT { return *this; }
         };
 
         ///////////////////////////////////////////////////////////////////////
@@ -249,7 +249,7 @@ namespace hpx { namespace util
 
             template <std::size_t I>
             typename detail::at_index<I, Ts...>::type&
-            get() BOOST_NOEXCEPT
+            get() HPX_NOEXCEPT
             {
                 return static_cast<tuple_member<
                         I, typename detail::at_index<I, Ts...>::type
@@ -258,7 +258,7 @@ namespace hpx { namespace util
 
             template <std::size_t I>
             typename detail::at_index<I, Ts...>::type const&
-            get() const BOOST_NOEXCEPT
+            get() const HPX_NOEXCEPT
             {
                 return static_cast<tuple_member<
                         I, typename detail::at_index<I, Ts...>::type
@@ -303,14 +303,14 @@ namespace hpx { namespace util
 
         // tuple& operator=(const tuple& u);
         // Assigns each element of u to the corresponding element of *this.
-        tuple& operator=(tuple const& /*other*/) BOOST_NOEXCEPT
+        tuple& operator=(tuple const& /*other*/) HPX_NOEXCEPT
         {
             return *this;
         }
 
         // tuple& operator=(tuple&& u) noexcept(see below );
         // For all i, assigns std::forward<Ti>(get<i>(u)) to get<i>(*this).
-        tuple& operator=(tuple&& /*other*/) BOOST_NOEXCEPT
+        tuple& operator=(tuple&& /*other*/) HPX_NOEXCEPT
         {
             return *this;
         }
@@ -320,7 +320,7 @@ namespace hpx { namespace util
         // void swap(tuple& rhs) noexcept(see below);
         // Calls swap for each element in *this and its corresponding element
         // in rhs.
-        void swap(tuple& /*other*/) BOOST_NOEXCEPT
+        void swap(tuple& /*other*/) HPX_NOEXCEPT
         {}
     };
 
@@ -509,13 +509,13 @@ namespace hpx { namespace util
         typedef typename detail::at_index<I, Ts...>::type type;
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
-        get(tuple<Ts...>& tuple) BOOST_NOEXCEPT
+        get(tuple<Ts...>& tuple) HPX_NOEXCEPT
         {
             return tuple._impl.template get<I>();
         }
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
-        get(tuple<Ts...> const& tuple) BOOST_NOEXCEPT
+        get(tuple<Ts...> const& tuple) HPX_NOEXCEPT
         {
             return tuple._impl.template get<I>();
         }
@@ -527,13 +527,13 @@ namespace hpx { namespace util
         typedef T0 type;
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
-        get(std::pair<T0, T1>& tuple) BOOST_NOEXCEPT
+        get(std::pair<T0, T1>& tuple) HPX_NOEXCEPT
         {
             return tuple.first;
         }
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
-        get(std::pair<T0, T1> const& tuple) BOOST_NOEXCEPT
+        get(std::pair<T0, T1> const& tuple) HPX_NOEXCEPT
         {
             return tuple.first;
         }
@@ -545,13 +545,13 @@ namespace hpx { namespace util
         typedef T1 type;
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
-        get(std::pair<T0, T1>& tuple) BOOST_NOEXCEPT
+        get(std::pair<T0, T1>& tuple) HPX_NOEXCEPT
         {
             return tuple.second;
         }
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
-        get(std::pair<T0, T1> const& tuple) BOOST_NOEXCEPT
+        get(std::pair<T0, T1> const& tuple) HPX_NOEXCEPT
         {
             return tuple.second;
         }
@@ -563,13 +563,13 @@ namespace hpx { namespace util
         typedef Type type;
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
-        get(boost::array<Type, Size>& tuple) BOOST_NOEXCEPT
+        get(boost::array<Type, Size>& tuple) HPX_NOEXCEPT
         {
             return tuple[I];
         }
 
         static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
-        get(boost::array<Type, Size> const& tuple) BOOST_NOEXCEPT
+        get(boost::array<Type, Size> const& tuple) HPX_NOEXCEPT
         {
             return tuple[I];
         }
@@ -593,7 +593,7 @@ namespace hpx { namespace util
     template <std::size_t I, typename Tuple>
     BOOST_CONSTEXPR BOOST_FORCEINLINE
     typename tuple_element<I, Tuple>::type&
-    get(Tuple& t) BOOST_NOEXCEPT
+    get(Tuple& t) HPX_NOEXCEPT
     {
         return tuple_element<I, Tuple>::get(t);
     }
@@ -604,7 +604,7 @@ namespace hpx { namespace util
     template <std::size_t I, typename Tuple>
     BOOST_CONSTEXPR BOOST_FORCEINLINE
     typename tuple_element<I, Tuple>::type const&
-    get(Tuple const& t) BOOST_NOEXCEPT
+    get(Tuple const& t) HPX_NOEXCEPT
     {
         return tuple_element<I, Tuple>::get(t);
     }
@@ -615,7 +615,7 @@ namespace hpx { namespace util
     template <std::size_t I, typename Tuple>
     BOOST_CONSTEXPR BOOST_FORCEINLINE
     typename tuple_element<I, Tuple>::type&&
-    get(Tuple&& t) BOOST_NOEXCEPT
+    get(Tuple&& t) HPX_NOEXCEPT
     {
         return std::forward<
             typename tuple_element<I, Tuple>::type>(util::get<I>(t));
@@ -644,7 +644,7 @@ namespace hpx { namespace util
     template <typename ...Ts>
     BOOST_FORCEINLINE
     tuple<Ts&&...>
-    forward_as_tuple(Ts&&... vs) BOOST_NOEXCEPT
+    forward_as_tuple(Ts&&... vs) HPX_NOEXCEPT
     {
         return tuple<Ts&&...>(std::forward<Ts>(vs)...);
     }
@@ -654,7 +654,7 @@ namespace hpx { namespace util
     template <typename ...Ts>
     BOOST_FORCEINLINE
     tuple<Ts&...>
-    tie(Ts&... vs) BOOST_NOEXCEPT
+    tie(Ts&... vs) HPX_NOEXCEPT
     {
         return tuple<Ts&...>(vs...);
     }
@@ -704,7 +704,7 @@ namespace hpx { namespace util
                 typename base_type::type
               , HeadTuple_&
             >::type
-            get(HeadTuple_& head, TailTuples_& ...tail) BOOST_NOEXCEPT
+            get(HeadTuple_& head, TailTuples_& ...tail) HPX_NOEXCEPT
             {
                 return base_type::get(head);
             }
@@ -732,7 +732,7 @@ namespace hpx { namespace util
                 typename base_type::type
               , HeadTuple_&
             >::type
-            get(HeadTuple_& head, TailTuples_& ...tail) BOOST_NOEXCEPT
+            get(HeadTuple_& head, TailTuples_& ...tail) HPX_NOEXCEPT
             {
                 return base_type::get(tail...);
             }
@@ -918,7 +918,7 @@ namespace hpx { namespace util
     template <typename ...Ts>
     BOOST_FORCEINLINE
     void swap(tuple<Ts...>& x, tuple<Ts...>& y)
-        BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR((x.swap(y))))
+        HPX_NOEXCEPT_IF(HPX_NOEXCEPT_EXPR((x.swap(y))))
     {
         x.swap(y);
     }

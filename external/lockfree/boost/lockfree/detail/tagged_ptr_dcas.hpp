@@ -25,7 +25,7 @@ public:
     typedef std::size_t tag_t;
 
     /** uninitialized constructor */
-    tagged_ptr(void) BOOST_NOEXCEPT//: ptr(0), tag(0)
+    tagged_ptr(void) HPX_NOEXCEPT//: ptr(0), tag(0)
     {}
 
 #ifdef BOOST_NO_CXX11_DEFAULTED_FUNCTIONS

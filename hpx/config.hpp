@@ -437,11 +437,14 @@
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-// Older Boost versions do not have BOOST_NOEXCEPT defined
-#if !defined(BOOST_NOEXCEPT)
-#  define BOOST_NOEXCEPT
-#  define BOOST_NOEXCEPT_IF(Predicate)
-#  define BOOST_NOEXCEPT_EXPR(Expression) false
+#ifdef HPX_HAVE_CXX11_NOEXCEPT
+#  define HPX_NOEXCEPT noexcept
+#  define HPX_NOEXCEPT_IF(Cond) noexcept(Cond)
+#  define HPX_NOEXCEPT_EXPR(Expr) noexcept(Expr)
+#else
+#  define HPX_NOEXCEPT
+#  define HPX_NOEXCEPT_IF(Cond)
+#  define HPX_NOEXCEPT_EXPR(Expr) false
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////

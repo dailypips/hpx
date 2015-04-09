@@ -10,6 +10,7 @@
 #if !defined(HPX_LCOS_LOCAL_ONCE_JAN_03_2013_0810PM)
 #define HPX_LCOS_LOCAL_ONCE_JAN_03_2013_0810PM
 
+#include <hpx/config.hpp>
 #include <hpx/hpx_fwd.hpp>
 #include <hpx/lcos/local/event.hpp>
 #include <hpx/lcos/local/once_fwd.hpp>
@@ -24,7 +25,7 @@ namespace hpx { namespace lcos { namespace local
 {
     struct once_flag
     {
-        once_flag() BOOST_NOEXCEPT
+        once_flag() HPX_NOEXCEPT
           : status_(0)
         {}
 

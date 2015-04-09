@@ -28,19 +28,19 @@ namespace hpx { namespace util { namespace detail
 {
     ///////////////////////////////////////////////////////////////////////////
     template <typename F>
-    static bool is_empty_function(F const&, boost::mpl::false_) BOOST_NOEXCEPT
+    static bool is_empty_function(F const&, boost::mpl::false_) HPX_NOEXCEPT
     {
         return false;
     }
 
     template <typename F>
-    static bool is_empty_function(F const& f, boost::mpl::true_) BOOST_NOEXCEPT
+    static bool is_empty_function(F const& f, boost::mpl::true_) HPX_NOEXCEPT
     {
         return f == 0;
     }
 
     template <typename F>
-    static bool is_empty_function(F const& f) BOOST_NOEXCEPT
+    static bool is_empty_function(F const& f) HPX_NOEXCEPT
     {
         boost::mpl::bool_<
             boost::is_pointer<F>::value
@@ -58,14 +58,14 @@ namespace hpx { namespace util { namespace detail
         static VTablePtr const empty_table;
 
     public:
-        function_base() BOOST_NOEXCEPT
+        function_base() HPX_NOEXCEPT
           : vptr(&empty_table)
           , object(0)
         {
             vtable::default_construct<empty_function<Sig> >(&object);
         }
 
-        function_base(function_base&& other) BOOST_NOEXCEPT
+        function_base(function_base&& other) HPX_NOEXCEPT
           : vptr(other.vptr)
           , object(other.object) // move-construct
         {
@@ -78,7 +78,7 @@ namespace hpx { namespace util { namespace detail
             vptr->delete_(&object);
         }
 
-        function_base& operator=(function_base&& other) BOOST_NOEXCEPT
+        function_base& operator=(function_base&& other) HPX_NOEXCEPT
         {
             if (this != &other)
             {
@@ -111,7 +111,7 @@ namespace hpx { namespace util { namespace detail
             }
         }
 
-        void reset() BOOST_NOEXCEPT
+        void reset() HPX_NOEXCEPT
         {
             if (!vptr->empty)
             {
@@ -122,36 +122,36 @@ namespace hpx { namespace util { namespace detail
             }
         }
 
-        void swap(function_base& f) BOOST_NOEXCEPT
+        void swap(function_base& f) HPX_NOEXCEPT
         {
             std::swap(vptr, f.vptr);
             std::swap(object, f.object); // swap
         }
 
-        bool empty() const BOOST_NOEXCEPT
+        bool empty() const HPX_NOEXCEPT
         {
             return vptr->empty;
         }
 
 #       ifndef BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
-        explicit operator bool() const BOOST_NOEXCEPT
+        explicit operator bool() const HPX_NOEXCEPT
         {
             return !empty();
         }
 #       else
-        operator typename util::safe_bool<function_base>::result_type() const BOOST_NOEXCEPT
+        operator typename util::safe_bool<function_base>::result_type() const HPX_NOEXCEPT
         {
             return util::safe_bool<function_base>()(!empty());
         }
 #       endif
 
-        std::type_info const& target_type() const BOOST_NOEXCEPT
+        std::type_info const& target_type() const HPX_NOEXCEPT
         {
             return empty() ? typeid(void) : vptr->get_type();
         }
 
         template <typename T>
-        T* target() const BOOST_NOEXCEPT
+        T* target() const HPX_NOEXCEPT
         {
             typedef typename util::decay<T>::type target_type;
 
@@ -164,7 +164,7 @@ namespace hpx { namespace util { namespace detail
 
     private:
         template <typename T>
-        static VTablePtr const* get_table_ptr() BOOST_NOEXCEPT
+        static VTablePtr const* get_table_ptr() HPX_NOEXCEPT
         {
             return detail::get_table<VTablePtr, T>();
         }
@@ -179,7 +179,7 @@ namespace hpx { namespace util { namespace detail
         boost::mpl::identity<detail::empty_function<Sig> >();
 
     template <typename Sig, typename VTablePtr>
-    static bool is_empty_function(function_base<VTablePtr, Sig> const& f) BOOST_NOEXCEPT
+    static bool is_empty_function(function_base<VTablePtr, Sig> const& f) HPX_NOEXCEPT
     {
         return f.empty();
     }
@@ -204,15 +204,15 @@ namespace hpx { namespace util { namespace detail
           : traits::is_callable<T(Ts...)>
         {};
 
-        basic_function() BOOST_NOEXCEPT
+        basic_function() HPX_NOEXCEPT
           : base_type()
         {}
 
-        basic_function(basic_function&& other) BOOST_NOEXCEPT
+        basic_function(basic_function&& other) HPX_NOEXCEPT
           : base_type(static_cast<base_type&&>(other))
         {}
 
-        basic_function& operator=(basic_function&& other) BOOST_NOEXCEPT
+        basic_function& operator=(basic_function&& other) HPX_NOEXCEPT
         {
             base_type::operator=(static_cast<base_type&&>(other));
             return *this;
@@ -224,7 +224,7 @@ namespace hpx { namespace util { namespace detail
         }
 
         template <typename T>
-        T* target() BOOST_NOEXCEPT
+        T* target() HPX_NOEXCEPT
         {
             BOOST_STATIC_ASSERT_MSG(
                 is_callable<T>::value
@@ -235,7 +235,7 @@ namespace hpx { namespace util { namespace detail
         }
 
         template <typename T>
-        T* target() const BOOST_NOEXCEPT
+        T* target() const HPX_NOEXCEPT
         {
             BOOST_STATIC_ASSERT_MSG(
                 is_callable<T>::value
@@ -247,7 +247,7 @@ namespace hpx { namespace util { namespace detail
     };
 
     template <typename Sig, typename VTablePtr>
-    static bool is_empty_function(basic_function<VTablePtr, Sig> const& f) BOOST_NOEXCEPT
+    static bool is_empty_function(basic_function<VTablePtr, Sig> const& f) HPX_NOEXCEPT
     {
         return f.empty();
     }

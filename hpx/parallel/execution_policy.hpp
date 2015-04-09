@@ -8,6 +8,7 @@
 #if !defined(HPX_PARALLEL_EXECUTION_POLICY_MAY_27_2014_0908PM)
 #define HPX_PARALLEL_EXECUTION_POLICY_MAY_27_2014_0908PM
 
+#include <hpx/config.hpp>
 #include <hpx/hpx_fwd.hpp>
 #include <hpx/exception.hpp>
 #include <hpx/util/decay.hpp>
@@ -703,7 +704,7 @@ namespace hpx { namespace parallel { HPX_INLINE_NAMESPACE(v1)
 
         /// Returns: typeid(T), such that T is the type of the execution policy
         ///          object contained by *this
-        std::type_info const& type() const BOOST_NOEXCEPT
+        std::type_info const& type() const HPX_NOEXCEPT
         {
             HPX_ASSERT(0 != type_);
             return *type_;
@@ -713,7 +714,7 @@ namespace hpx { namespace parallel { HPX_INLINE_NAMESPACE(v1)
         ///          execution policy object; otherwise a null pointer
         /// Requires: is_execution_policy<T>::value is true
         template <typename ExPolicy>
-        ExPolicy* get() BOOST_NOEXCEPT
+        ExPolicy* get() HPX_NOEXCEPT
         {
             BOOST_STATIC_ASSERT_MSG(
                 !(boost::is_same<ExPolicy, execution_policy>::value),
@@ -732,7 +733,7 @@ namespace hpx { namespace parallel { HPX_INLINE_NAMESPACE(v1)
         ///          execution policy object; otherwise a null pointer
         /// Requires: is_execution_policy<T>::value is true
         template <typename ExPolicy>
-        ExPolicy const* get() const BOOST_NOEXCEPT
+        ExPolicy const* get() const HPX_NOEXCEPT
         {
             BOOST_STATIC_ASSERT_MSG(
                 !(boost::is_same<ExPolicy, execution_policy>::value),

@@ -3,6 +3,7 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#include <hpx/config.hpp>
 #include <hpx/hpx_fwd.hpp>
 
 #include <hpx/runtime.hpp>
@@ -35,11 +36,11 @@ namespace hpx
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    thread::thread() BOOST_NOEXCEPT
+    thread::thread() HPX_NOEXCEPT
       : id_(threads::invalid_thread_id)
     {}
 
-    thread::thread(thread && rhs) BOOST_NOEXCEPT
+    thread::thread(thread && rhs) HPX_NOEXCEPT
       : id_(threads::invalid_thread_id)   // the rhs needs to end up with an invalid_id
     {
         mutex_type::scoped_lock l(rhs.mtx_);
@@ -47,7 +48,7 @@ namespace hpx
         rhs.id_ = threads::invalid_thread_id;
     }
 
-    thread& thread::operator=(thread && rhs) BOOST_NOEXCEPT
+    thread& thread::operator=(thread && rhs) HPX_NOEXCEPT
     {
         mutex_type::scoped_lock l(mtx_);
         mutex_type::scoped_lock l2(rhs.mtx_);
@@ -75,7 +76,7 @@ namespace hpx
         }
     }
 
-    void thread::swap(thread& rhs) BOOST_NOEXCEPT
+    void thread::swap(thread& rhs) HPX_NOEXCEPT
     {
         mutex_type::scoped_lock l(mtx_);
         mutex_type::scoped_lock l2(rhs.mtx_);
@@ -125,12 +126,12 @@ namespace hpx
         return threads::terminated;
     }
 
-    thread::id thread::get_id() const BOOST_NOEXCEPT
+    thread::id thread::get_id() const HPX_NOEXCEPT
     {
         return id(native_handle());
     }
 
-    std::size_t thread::hardware_concurrency() BOOST_NOEXCEPT
+    std::size_t thread::hardware_concurrency() HPX_NOEXCEPT
     {
         return hpx::threads::hardware_concurrency();
     }
@@ -304,12 +305,12 @@ namespace hpx
     ///////////////////////////////////////////////////////////////////////////
     namespace this_thread
     {
-        void yield() BOOST_NOEXCEPT
+        void yield() HPX_NOEXCEPT
         {
             this_thread::suspend(threads::pending, "this_thread::yield");
         }
 
-        thread::id get_id() BOOST_NOEXCEPT
+        thread::id get_id() HPX_NOEXCEPT
         {
             return thread::id(threads::get_self_id());
         }

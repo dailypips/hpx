@@ -6,6 +6,7 @@
 #if !defined(HPX_PARALLEL_UTIL_CANCELLATION_TOKEN_OCT_05_1205PM)
 #define HPX_PARALLEL_UTIL_CANCELLATION_TOKEN_OCT_05_1205PM
 
+#include <hpx/config.hpp>
 #include <hpx/hpx_fwd.hpp>
 
 #include <algorithm>
@@ -38,12 +39,12 @@ namespace hpx { namespace parallel { namespace util
           : was_cancelled_(boost::make_shared<flag_type>(data))
         {}
 
-        bool was_cancelled(T data) const BOOST_NOEXCEPT
+        bool was_cancelled(T data) const HPX_NOEXCEPT
         {
             return Pred()(was_cancelled_->load(boost::memory_order_relaxed), data);
         }
 
-        void cancel(T data) BOOST_NOEXCEPT
+        void cancel(T data) HPX_NOEXCEPT
         {
             T old_data = was_cancelled_->load(boost::memory_order_relaxed);
 
@@ -55,7 +56,7 @@ namespace hpx { namespace parallel { namespace util
                 boost::memory_order_relaxed));
         }
 
-        T get_data() const BOOST_NOEXCEPT
+        T get_data() const HPX_NOEXCEPT
         {
             return was_cancelled_->load(boost::memory_order_relaxed);
         }
@@ -75,12 +76,12 @@ namespace hpx { namespace parallel { namespace util
           : was_cancelled_(boost::make_shared<flag_type>(false))
         {}
 
-        bool was_cancelled() const BOOST_NOEXCEPT
+        bool was_cancelled() const HPX_NOEXCEPT
         {
             return was_cancelled_->load(boost::memory_order_relaxed);
         }
 
-        void cancel() BOOST_NOEXCEPT
+        void cancel() HPX_NOEXCEPT
         {
             was_cancelled_->store(true, boost::memory_order_relaxed);
         }

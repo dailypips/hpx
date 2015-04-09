@@ -8,6 +8,7 @@
 #if !defined(HPX_PARALLEL_TASK_REGION_JUL_09_2014_1250PM)
 #define HPX_PARALLEL_TASK_REGION_JUL_09_2014_1250PM
 
+#include <hpx/config.hpp>
 #include <hpx/hpx_fwd.hpp>
 #include <hpx/exception.hpp>
 #include <hpx/config/emulate_deleted.hpp>
@@ -55,7 +56,7 @@ namespace hpx { namespace parallel { HPX_INLINE_NAMESPACE(v2)
     class task_canceled_exception : public hpx::exception
     {
     public:
-        task_canceled_exception() BOOST_NOEXCEPT
+        task_canceled_exception() HPX_NOEXCEPT
           : hpx::exception(hpx::task_canceled_exception)
         {}
     };

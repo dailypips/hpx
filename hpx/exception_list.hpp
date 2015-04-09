@@ -8,13 +8,14 @@
 #if !defined(HPX_EXCEPTION_LIST_OCT_06_2008_0942AM)
 #define HPX_EXCEPTION_LIST_OCT_06_2008_0942AM
 
-#include <list>
-#include <string>
-
+#include <hpx/config.hpp>
 #include <hpx/exception.hpp>
 #include <hpx/lcos/local/spinlock.hpp>
 #include <hpx/util/move.hpp>
 #include <hpx/util/scoped_unlock.hpp>
+
+#include <list>
+#include <string>
 
 #include <hpx/config/warnings_prefix.hpp>
 
@@ -63,7 +64,7 @@ namespace hpx
         /// exception_list.
         ///
         /// \note Complexity: Constant time.
-        std::size_t size() const BOOST_NOEXCEPT
+        std::size_t size() const HPX_NOEXCEPT
         {
             mutex_type::scoped_lock l(mtx_);
             return exceptions_.size();
@@ -71,14 +72,14 @@ namespace hpx
 
         /// An iterator referring to the first exception_ptr object contained
         /// within the exception_list.
-        exception_list_type::const_iterator begin() const BOOST_NOEXCEPT
+        exception_list_type::const_iterator begin() const HPX_NOEXCEPT
         {
             mutex_type::scoped_lock l(mtx_);
             return exceptions_.begin();
         }
 
         /// An iterator which is the past-the-end value for the exception_list.
-        exception_list_type::const_iterator end() const BOOST_NOEXCEPT
+        exception_list_type::const_iterator end() const HPX_NOEXCEPT
         {
             mutex_type::scoped_lock l(mtx_);
             return exceptions_.end();
