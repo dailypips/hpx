@@ -48,17 +48,17 @@ namespace hpx { namespace util
     struct tuple_element; // undefined
 
     template <std::size_t I, typename Tuple>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename tuple_element<I, Tuple>::type&
     get(Tuple& t) HPX_NOEXCEPT;
 
     template <std::size_t I, typename Tuple>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename tuple_element<I, Tuple>::type const&
     get(Tuple const& t) HPX_NOEXCEPT;
 
     template <std::size_t I, typename Tuple>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename tuple_element<I, Tuple>::type&&
     get(Tuple&& t) HPX_NOEXCEPT;
 
@@ -69,20 +69,20 @@ namespace hpx { namespace util
         struct tuple_member
         {
         public:
-            BOOST_CONSTEXPR tuple_member()
+            HPX_CONSTEXPR tuple_member()
               : _value()
             {}
 
             template <typename U>
-            explicit BOOST_CONSTEXPR tuple_member(U&& value)
+            explicit HPX_CONSTEXPR tuple_member(U&& value)
               : _value(std::forward<U>(value))
             {}
 
-            BOOST_CONSTEXPR tuple_member(tuple_member const& other)
+            HPX_CONSTEXPR tuple_member(tuple_member const& other)
               : _value(other.value())
             {}
 
-            BOOST_CONSTEXPR tuple_member(tuple_member&& other)
+            HPX_CONSTEXPR tuple_member(tuple_member&& other)
               : _value(std::forward<T>(other.value()))
             {}
 
@@ -99,20 +99,20 @@ namespace hpx { namespace util
         > : T
         {
         public:
-            BOOST_CONSTEXPR tuple_member()
+            HPX_CONSTEXPR tuple_member()
               : T()
             {}
 
             template <typename U>
-            explicit BOOST_CONSTEXPR tuple_member(U&& value)
+            explicit HPX_CONSTEXPR tuple_member(U&& value)
               : T(std::forward<U>(value))
             {}
 
-            BOOST_CONSTEXPR tuple_member(tuple_member const& other)
+            HPX_CONSTEXPR tuple_member(tuple_member const& other)
               : T(other.value())
             {}
 
-            BOOST_CONSTEXPR tuple_member(tuple_member&& other)
+            HPX_CONSTEXPR tuple_member(tuple_member&& other)
               : T(std::forward<T>(other.value()))
             {}
 
@@ -183,7 +183,7 @@ namespace hpx { namespace util
           : tuple_member<Is, Ts>...
         {
             // 20.4.2.1, tuple construction
-            BOOST_CONSTEXPR tuple_impl()
+            HPX_CONSTEXPR tuple_impl()
               : tuple_member<Is, Ts>()...
             {}
 
@@ -191,15 +191,15 @@ namespace hpx { namespace util
                 typename boost::enable_if_c<
                     detail::pack<Us...>::size == detail::pack<Ts...>::size
                 >::type>
-            explicit BOOST_CONSTEXPR tuple_impl(Us&&... vs)
+            explicit HPX_CONSTEXPR tuple_impl(Us&&... vs)
               : tuple_member<Is, Ts>(std::forward<Us>(vs))...
             {}
 
-            BOOST_CONSTEXPR tuple_impl(tuple_impl const& other)
+            HPX_CONSTEXPR tuple_impl(tuple_impl const& other)
               : tuple_member<Is, Ts>(static_cast<tuple_member<Is, Ts> const&>(other))...
             {}
 
-            BOOST_CONSTEXPR tuple_impl(tuple_impl&& other)
+            HPX_CONSTEXPR tuple_impl(tuple_impl&& other)
               : tuple_member<Is, Ts>(static_cast<tuple_member<Is, Ts>&&>(other))...
             {}
 
@@ -207,7 +207,7 @@ namespace hpx { namespace util
                 typename boost::enable_if_c<
                     are_tuples_compatible_not_same<tuple<Ts...>, UTuple&&>::value
                 >::type>
-            BOOST_CONSTEXPR tuple_impl(UTuple&& other)
+            HPX_CONSTEXPR tuple_impl(UTuple&& other)
               : tuple_member<Is, Ts>(util::get<Is>(std::forward<UTuple>(other)))...
             {}
 
@@ -284,19 +284,19 @@ namespace hpx { namespace util
 
         // constexpr tuple();
         // Value initializes each element.
-        BOOST_CONSTEXPR tuple()
+        HPX_CONSTEXPR tuple()
         {}
 
         // tuple(const tuple& u) = default;
         // Initializes each element of *this with the corresponding element
         // of u.
-        BOOST_CONSTEXPR tuple(tuple const& /*other*/)
+        HPX_CONSTEXPR tuple(tuple const& /*other*/)
         {}
 
         // tuple(tuple&& u) = default;
         // For all i, initializes the ith element of *this with
         // std::forward<Ti>(get<i>(u)).
-        BOOST_CONSTEXPR tuple(tuple&& /*other*/)
+        HPX_CONSTEXPR tuple(tuple&& /*other*/)
         {}
 
         // 20.4.2.2, tuple assignment
@@ -337,14 +337,14 @@ namespace hpx { namespace util
 
         // constexpr tuple();
         // Value initializes each element.
-        BOOST_CONSTEXPR tuple()
+        HPX_CONSTEXPR tuple()
           : _impl()
         {}
 
         // explicit constexpr tuple(const Types&...);
         // Initializes each element with the value of the corresponding
         // parameter.
-        explicit BOOST_CONSTEXPR tuple(Ts const&... vs)
+        explicit HPX_CONSTEXPR tuple(Ts const&... vs)
           : _impl(vs...)
         {}
 
@@ -369,21 +369,21 @@ namespace hpx { namespace util
                   , detail::are_tuples_compatible<tuple, tuple<U, Us...>&&>
                 >::type::value
             >::type>
-        explicit BOOST_CONSTEXPR tuple(U&& v, Us&&... vs)
+        explicit HPX_CONSTEXPR tuple(U&& v, Us&&... vs)
           : _impl(std::forward<U>(v), std::forward<Us>(vs)...)
         {}
 
         // tuple(const tuple& u) = default;
         // Initializes each element of *this with the corresponding element
         // of u.
-        BOOST_CONSTEXPR tuple(tuple const& other)
+        HPX_CONSTEXPR tuple(tuple const& other)
           : _impl(other._impl)
         {}
 
         // tuple(tuple&& u) = default;
         // For all i, initializes the ith element of *this with
         // std::forward<Ti>(get<i>(u)).
-        BOOST_CONSTEXPR tuple(tuple&& other)
+        HPX_CONSTEXPR tuple(tuple&& other)
           : _impl(std::move(other._impl))
         {}
 
@@ -398,7 +398,7 @@ namespace hpx { namespace util
             typename boost::enable_if_c<
                 detail::are_tuples_compatible_not_same<tuple, UTuple&&>::value
             >::type>
-        BOOST_CONSTEXPR tuple(UTuple&& other)
+        HPX_CONSTEXPR tuple(UTuple&& other)
           : _impl(std::forward<UTuple>(other))
         {}
 
@@ -508,13 +508,13 @@ namespace hpx { namespace util
     {
         typedef typename detail::at_index<I, Ts...>::type type;
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
+        static HPX_CONSTEXPR type&
         get(tuple<Ts...>& tuple) HPX_NOEXCEPT
         {
             return tuple._impl.template get<I>();
         }
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
+        static HPX_CONSTEXPR type const&
         get(tuple<Ts...> const& tuple) HPX_NOEXCEPT
         {
             return tuple._impl.template get<I>();
@@ -526,13 +526,13 @@ namespace hpx { namespace util
     {
         typedef T0 type;
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
+        static HPX_CONSTEXPR type&
         get(std::pair<T0, T1>& tuple) HPX_NOEXCEPT
         {
             return tuple.first;
         }
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
+        static HPX_CONSTEXPR type const&
         get(std::pair<T0, T1> const& tuple) HPX_NOEXCEPT
         {
             return tuple.first;
@@ -544,13 +544,13 @@ namespace hpx { namespace util
     {
         typedef T1 type;
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
+        static HPX_CONSTEXPR type&
         get(std::pair<T0, T1>& tuple) HPX_NOEXCEPT
         {
             return tuple.second;
         }
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
+        static HPX_CONSTEXPR type const&
         get(std::pair<T0, T1> const& tuple) HPX_NOEXCEPT
         {
             return tuple.second;
@@ -562,13 +562,13 @@ namespace hpx { namespace util
     {
         typedef Type type;
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type&
+        static HPX_CONSTEXPR type&
         get(boost::array<Type, Size>& tuple) HPX_NOEXCEPT
         {
             return tuple[I];
         }
 
-        static BOOST_CONSTEXPR BOOST_FORCEINLINE type const&
+        static HPX_CONSTEXPR type const&
         get(boost::array<Type, Size> const& tuple) HPX_NOEXCEPT
         {
             return tuple[I];
@@ -591,7 +591,7 @@ namespace hpx { namespace util
     // constexpr typename tuple_element<I, tuple<Types...> >::type&
     // get(tuple<Types...>& t) noexcept;
     template <std::size_t I, typename Tuple>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename tuple_element<I, Tuple>::type&
     get(Tuple& t) HPX_NOEXCEPT
     {
@@ -602,7 +602,7 @@ namespace hpx { namespace util
     // constexpr typename tuple_element<I, tuple<Types...> >::type const&
     // get(const tuple<Types...>& t) noexcept;
     template <std::size_t I, typename Tuple>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename tuple_element<I, Tuple>::type const&
     get(Tuple const& t) HPX_NOEXCEPT
     {
@@ -613,7 +613,7 @@ namespace hpx { namespace util
     // constexpr typename tuple_element<I, tuple<Types...> >::type&&
     // get(tuple<Types...>&& t) noexcept;
     template <std::size_t I, typename Tuple>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename tuple_element<I, Tuple>::type&&
     get(Tuple&& t) HPX_NOEXCEPT
     {
@@ -627,7 +627,7 @@ namespace hpx { namespace util
     // template<class... Types>
     // constexpr tuple<VTypes...> make_tuple(Types&&... t);
     template <typename ...Ts>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     tuple<typename decay_unwrap<Ts>::type...>
     make_tuple(Ts&&... vs)
     {
@@ -699,7 +699,7 @@ namespace hpx { namespace util
             typedef tuple_element<I, HeadTuple> base_type;
 
             template <typename HeadTuple_, typename ...TailTuples_>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             typename detail::qualify_as<
                 typename base_type::type
               , HeadTuple_&
@@ -727,7 +727,7 @@ namespace hpx { namespace util
             > base_type;
 
             template <typename HeadTuple_, typename ...TailTuples_>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             typename detail::qualify_as<
                 typename base_type::type
               , HeadTuple_&
@@ -752,7 +752,7 @@ namespace hpx { namespace util
             > type;
 
             template <typename ...Tuples_>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             type make(Tuples_&&... tuples)
             {
                 return type(tuple_cat_element<Is, detail::pack<Tuples...> >::get(
@@ -770,7 +770,7 @@ namespace hpx { namespace util
     }
 
     template <typename ...Tuples>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename detail::tuple_cat_result<Tuples...>::type
     tuple_cat(Tuples&&... tuples)
     {
@@ -792,7 +792,7 @@ namespace hpx { namespace util
         struct tuple_equal_to
         {
             template <typename TTuple, typename UTuple>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             bool call(TTuple const& t, UTuple const&u)
             {
                 return
@@ -805,7 +805,7 @@ namespace hpx { namespace util
         struct tuple_equal_to<Size, Size>
         {
             template <typename TTuple, typename UTuple>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             bool call(TTuple const& t, UTuple const&u)
             {
                 return true;
@@ -814,7 +814,7 @@ namespace hpx { namespace util
     }
 
     template <typename ...Ts, typename ...Us>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename boost::enable_if_c<sizeof...(Ts) == sizeof...(Us), bool>::type
     operator==(tuple<Ts...> const& t, tuple<Us...> const& u)
     {
@@ -825,7 +825,7 @@ namespace hpx { namespace util
     // constexpr bool operator!=
     //     (const tuple<TTypes...>& t, const tuple<UTypes...>& u);
     template <typename ...Ts, typename ...Us>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename boost::enable_if_c<sizeof...(Ts) == sizeof...(Us), bool>::type
     operator!=(tuple<Ts...> const& t, tuple<Us...> const& u)
     {
@@ -845,7 +845,7 @@ namespace hpx { namespace util
         struct tuple_less_than
         {
             template <typename TTuple, typename UTuple>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             bool call(TTuple const& t, UTuple const&u)
             {
                 return
@@ -861,7 +861,7 @@ namespace hpx { namespace util
         struct tuple_less_than<Size, Size>
         {
             template <typename TTuple, typename UTuple>
-            static BOOST_CONSTEXPR BOOST_FORCEINLINE
+            static HPX_CONSTEXPR
             bool call(TTuple const& t, UTuple const&u)
             {
                 return false;
@@ -870,7 +870,7 @@ namespace hpx { namespace util
     }
 
     template <typename ...Ts, typename ...Us>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename boost::enable_if_c<sizeof...(Ts) == sizeof...(Us), bool>::type
     operator<(tuple<Ts...> const& t, tuple<Us...> const& u)
     {
@@ -881,7 +881,7 @@ namespace hpx { namespace util
     // constexpr bool operator>
     //     (const tuple<TTypes...>& t, const tuple<UTypes...>& u);
     template <typename ...Ts, typename ...Us>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename boost::enable_if_c<sizeof...(Ts) == sizeof...(Us), bool>::type
     operator>(tuple<Ts...> const& t, tuple<Us...> const& u)
     {
@@ -892,7 +892,7 @@ namespace hpx { namespace util
     // constexpr bool operator<=
     //     (const tuple<TTypes...>& t, const tuple<UTypes...>& u);
     template <typename ...Ts, typename ...Us>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename boost::enable_if_c<sizeof...(Ts) == sizeof...(Us), bool>::type
     operator<=(tuple<Ts...> const& t, tuple<Us...> const& u)
     {
@@ -903,7 +903,7 @@ namespace hpx { namespace util
     // constexpr bool operator>=
     //     (const tuple<TTypes...>& t, const tuple<UTypes...>& u);
     template <typename ...Ts, typename ...Us>
-    BOOST_CONSTEXPR BOOST_FORCEINLINE
+    HPX_CONSTEXPR
     typename boost::enable_if_c<sizeof...(Ts) == sizeof...(Us), bool>::type
     operator>=(tuple<Ts...> const& t, tuple<Us...> const& u)
     {

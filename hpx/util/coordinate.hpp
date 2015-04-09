@@ -38,7 +38,7 @@ namespace hpx { namespace util
 
     public:
         // constants and types
-        static BOOST_CONSTEXPR_OR_CONST int rank = Rank;
+        static HPX_CONSTEXPR_OR_CONST int rank = Rank;
 
         typedef std::ptrdiff_t& reference;
         typedef std::ptrdiff_t const& const_reference;
@@ -202,7 +202,7 @@ namespace hpx { namespace util
 
     public:
         // constants and types
-        static BOOST_CONSTEXPR_OR_CONST int rank = Rank;
+        static HPX_CONSTEXPR_OR_CONST int rank = Rank;
 
         typedef std::ptrdiff_t& reference;
         typedef std::ptrdiff_t const& const_reference;
@@ -599,7 +599,7 @@ namespace hpx { namespace util
     {
     public:
         // constants and types
-        static BOOST_CONSTEXPR_OR_CONST int rank = 1;
+        static HPX_CONSTEXPR_OR_CONST int rank = 1;
 
         typedef std::ptrdiff_t& reference;
         typedef std::ptrdiff_t const& const_reference;
@@ -777,7 +777,7 @@ namespace hpx { namespace util
     {
     public:
         // constants and types
-        static BOOST_CONSTEXPR_OR_CONST int rank = 1;
+        static HPX_CONSTEXPR_OR_CONST int rank = 1;
 
         typedef std::ptrdiff_t& reference;
         typedef std::ptrdiff_t const& const_reference;

@@ -19,7 +19,6 @@
 #include <hpx/config/branch_hints.hpp>
 #include <hpx/config/manual_profiling.hpp>
 #include <hpx/config/forceinline.hpp>
-#include <hpx/config/constexpr.hpp>
 #include <hpx/config/cxx11_macros.hpp>
 
 #if BOOST_VERSION < 105600
@@ -445,6 +444,23 @@
 #  define HPX_NOEXCEPT
 #  define HPX_NOEXCEPT_IF(Cond)
 #  define HPX_NOEXCEPT_EXPR(Expr) false
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+#ifdef HPX_HAVE_CXX11_CONSTEXR
+#  define HPX_CONSTEXPR constexpr
+#  ifdef HPX_HAVE_CXX14_CONSTEXR
+#    define HPX_RELAXED_CONSTEXPR constexpr
+#  else
+#    define HPX_RELAXED_CONSTEXPR inline
+#  endif
+#  define HPX_CONSTEXPR_OR_CONST constexpr
+#  define HPX_STATIC_CONSTEXPR static constexpr
+#else
+#  define HPX_CONSTEXPR inline
+#  define HPX_RELAXED_CONSTEXPR inline
+#  define HPX_CONSTEXPR_OR_CONST const
+#  define HPX_STATIC_CONSTEXPR static const
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
